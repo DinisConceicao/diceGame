@@ -1,11 +1,18 @@
 import * as THREE from 'three';
 
+export const Targets = {
+    all: ['targetLeft', 'targetFront', 'targetRight'],
+    self: ['targetSelf'],
+    player: ['targetLeft', 'targetFront', 'targetRight'],
+    trueall: ['targetLeft', 'targetFront', 'targetRight', 'targetSelf']
+};
+
 export class Player {
-	constructor(scene) {
+	constructor(scene, hand) {
 		this.scene = scene;
 		this.health = 50;
 
-		this.hand = [];
+		this.hand = hand;
 		this.dropzones = {
 			targetLeft: { minX: -25, maxX: -10, minY: -15, maxY: 15, label: 'targetLeft' },
 			targetFront: { minX: -8, maxX: 8, minY: 2, maxY: 15, label: 'targetFront' },
@@ -13,7 +20,7 @@ export class Player {
 			targetSelf: { minX: -8, maxX: 8, minY: -15, maxY: -2, label: 'targetSelf' },
 		};
 		this.dropZonesGraphic = {};
-
+			
 		for (const one in this.dropzones) {
 			const z = this.dropzones[one];
 			const width = z.maxX - z.minX;

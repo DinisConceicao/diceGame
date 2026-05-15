@@ -26,6 +26,7 @@ export class Card {
 		this.damage = null;
 		this.target = null;
 		this.color = null;
+		this.target = null;
 		this.hovered = false;
 		this.originalX = x;
 		this.originalY = y;
@@ -45,6 +46,7 @@ export class Card {
 		this.name = thecard.name;
 		this.color = thecard.color;
 		this.cost = thecard.cost;
+		this.target = thecard.target;
 		this.damage = typeof thecard.damage === 'function' ? thecard.damage() : thecard.damage;
 		const texture = createCardTexture(this);
 		this.mesh.material.map = texture;

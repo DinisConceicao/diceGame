@@ -22,8 +22,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 const game = new Game();
 
-const player = new Player(scene)
-
 const diceList = [
 	new Dice(scene, 4, -3, 0),
 	new Dice(scene, 2, -3, 0),
@@ -42,6 +40,8 @@ const hand = Array.from({ length: handSize }, (_, i) => {
 hand.forEach(card => card.randomCard());
 diceList.forEach(d => game.addMana(manaFromDice[d.result]));
 updateCardDisplay();
+
+const player = new Player(scene, hand);
 
 const input = new Input(
 	camera, diceList, hand, player, game,

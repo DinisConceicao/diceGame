@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { Targets } from './render/player.js';
 
 export class Input {
 	constructor(camera, diceList, hand, player, gamestate, rolldone, cardplayed) {
@@ -9,6 +10,7 @@ export class Input {
 		this.gamestate = gamestate;
 		this.rolldone = rolldone;
 		this.cardplayed = cardplayed;
+		this.cardtarget = null;
 		this.raycaster = new THREE.Raycaster();
 		this.mouse = new THREE.Vector2();
 		this.keykey();		
@@ -50,6 +52,7 @@ export class Input {
 			const hit = this.raycaster.intersectObject(c.mesh);
 			if (hit.length > 0 && this.gamestate.canCastSpell(c.color, c.cost)) {
 				c.dragging = true;
+				this.cardtarget = Targets[c.target];
 			}
 		})
 	}
@@ -60,7 +63,8 @@ export class Input {
 		const hoveringzone = this.player.dropCard(pos.x, pos.y);
 
 		Object.entries(this.player.dropZonesGraphic).forEach(([zon,mesh]) => {
-			mesh.visible = isdrag && zon === hoveringzone;
+			const validzone = this.cardtarget.includes(zon);
+			mesh.visible = isdrag && validzone && zon === hoveringzone;
 			mesh.material.color.set(0x00ff00);
 		});
 
@@ -76,12 +80,14 @@ export class Input {
 
 	onMouseUp(event) {
 		Object.values(this.player.dropZonesGraphic).forEach(m => m.visible = false);
+		this.cardtarget = null;
 		this.hand.forEach(c => {
 			if (!c.dragging) return;
 			c.dragging = false;
 			const zone = this.player.dropCard(c.mesh.position.x, c.mesh.position.y);
+			const validzone = zone && Targets[c.target].includes(zone);
 			console.log(zone);
-			if (zone && c.playable) {
+			if (zone && c.playable && validzone) {
 				c.castPlay();
 				this.cardplayed();
 			} else {
