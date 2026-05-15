@@ -13,13 +13,12 @@ canvas {
 rollbutton {
 	position: fixed;
 	top: 30%;
-	left: 50%;
-	transform: translate(-50%, -70%);
+	left: 75%;
 	height: 300;
 	width: 300;
 	color: white;
 	background-color: brown;
-	font-size: 10vh;
+	font-size: 60px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -46,7 +45,7 @@ Turn {
 nextturnbutton {
 	position: fixed;
 	top: 50%;
-	left: 70%;
+	left: 75%;
 	color: white;
 	background-color: brown;
 	font-size: 60px;

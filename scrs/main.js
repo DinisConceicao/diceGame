@@ -41,7 +41,7 @@ hand.forEach(card => card.randomCard());
 diceList.forEach(d => game.addMana(manaFromDice[d.result]));
 updateCardDisplay();
 
-const player = new Player(scene, hand);
+const player = new Player(scene);
 
 const input = new Input(
 	camera, diceList, hand, player, game,

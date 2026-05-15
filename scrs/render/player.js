@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { HealthBar } from './healthbar.js';
 
 export const Targets = {
     all: ['targetLeft', 'targetFront', 'targetRight'],
@@ -8,11 +9,9 @@ export const Targets = {
 };
 
 export class Player {
-	constructor(scene, hand) {
+	constructor(scene) {
 		this.scene = scene;
-		this.health = 50;
-
-		this.hand = hand;
+		this.hp = new HealthBar(this.scene, 50, 0, 6);
 		this.dropzones = {
 			targetLeft: { minX: -25, maxX: -10, minY: -15, maxY: 15, label: 'targetLeft' },
 			targetFront: { minX: -8, maxX: 8, minY: 2, maxY: 15, label: 'targetFront' },
@@ -49,21 +48,6 @@ export class Player {
 		console.log(this.mana);
 	}
 
-	// playingCard(c) {
-	// 	if (!c.dragging) return ;
-	// 	const x = c.mesh.position.x;
-	// 	const y = c.mesh.position.y;
-	// 	const zone = this.dropCard(x, y);
-
-	// 	if (zone) {
-	// 		c.castPlay();
-	// 	} else {
-	// 		c.mesh.position.x = c.originalX;
-	// 		c.mesh.position.y = c.originalY;
-	// 	}
-	// 	c.hovered = false;
-	// }
-
 	dropCard(x, y) {
 		for (const zone of Object.values(this.dropzones)) {
 			if (x >= zone.minX && x <= zone.maxX && y >= zone.minY && y <= zone.maxY) {
@@ -71,5 +55,15 @@ export class Player {
 			}
 		}
 		return null;
+	}
+
+	takeDmg(amount) {
+		this.health = Math.max(0, this.health - amount);
+		this.hp.newHealth(this.health);
+	}
+
+	gainHp(amount) {
+		this.health = Math.max(0, this.health + amount);
+		this.hp.newHealth(this.health);
 	}
 }
