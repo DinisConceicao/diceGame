@@ -47,4 +47,11 @@ export class Game {
 		for (const color in this.mana)
 			this.mana[color] = 0;
 	}
+
+	playCard(c, ttaa) {
+		if (c.color === "gold")
+			ttaa.gainHp(c.damage);
+		else
+			ttaa.takeDmg(c.damage);
+	}
 }

@@ -20,6 +20,17 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
+// const cloader = new THREE.CubeTextureLoader();
+// const text = cloader.load([
+// 	'./textures/back.jpg',
+// 	'./textures/back.jpg',
+// 	'./textures/back.jpg',
+// 	'./textures/back.jpg',
+// 	'./textures/back.jpg',
+// 	'./textures/back.jpg'
+// ]);
+// scene.background = text;
+
 const game = new Game();
 
 const diceList = [
@@ -44,9 +55,7 @@ updateCardDisplay();
 const player = new Player(scene);
 
 const input = new Input(
-	camera, diceList, hand, player, game,
-	() => { updateRollDisplay(); updateCardDisplay(); },
-	() => { updateCardDisplay(); }
+	camera, diceList, hand, player, game
 );
 
 const turnDisplay = document.createElement('Turn');
@@ -117,7 +126,4 @@ function animate() {
 }
 animate();
 
-// fazer um deck
-// descobrir como fazer as cartas serem random
-// probs fazer tipo 10 cartas de cada tipo idk
-// cada cor tem 8 cartas, e ha 12 cartas cinzentas
+// tenho q fazer tudo o q teja na tela relativo a camara do player e nao coordenadas brute forced

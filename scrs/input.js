@@ -2,14 +2,12 @@ import * as THREE from 'three';
 import { Targets } from './render/player.js';
 
 export class Input {
-	constructor(camera, diceList, hand, player, gamestate, rolldone, cardplayed) {
+	constructor(camera, diceList, hand, player, gamestate) {
 		this.camera = camera;
 		this.diceList = diceList;
 		this.hand = hand;
 		this.player = player;
 		this.gamestate = gamestate;
-		this.rolldone = rolldone;
-		this.cardplayed = cardplayed;
 		this.cardtarget = null;
 		this.raycaster = new THREE.Raycaster();
 		this.mouse = new THREE.Vector2();
@@ -88,7 +86,7 @@ export class Input {
 			const validzone = zone && Targets[c.target]?.includes(zone);
 			if (zone && c.playable && validzone) {
 				c.castPlay();
-				this.cardplayed();
+				this.gamestate.playCard(c, this.player);
 			} else {
 				c.mesh.position.x = c.originalX;
 				c.mesh.position.y = c.originalY;

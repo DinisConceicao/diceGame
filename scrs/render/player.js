@@ -12,6 +12,7 @@ export class Player {
 	constructor(scene) {
 		this.scene = scene;
 		this.hp = new HealthBar(this.scene, 50, 0, 6);
+		this.health = this.hp.hp;
 		this.dropzones = {
 			targetLeft: { minX: -25, maxX: -10, minY: -15, maxY: 15, label: 'targetLeft' },
 			targetFront: { minX: -8, maxX: 8, minY: 2, maxY: 15, label: 'targetFront' },
@@ -63,7 +64,7 @@ export class Player {
 	}
 
 	gainHp(amount) {
-		this.health = Math.max(0, this.health + amount);
+		this.health = Math.min(this.hp.maxhp, this.health + amount);
 		this.hp.newHealth(this.health);
 	}
 }
