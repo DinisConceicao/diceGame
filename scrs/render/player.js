@@ -9,8 +9,10 @@ export const Targets = {
 };
 
 export class Player {
-	constructor(scene) {
+	constructor(scene, dices, cards) {
+		this.diceList = dices;
 		this.scene = scene;
+		this.hand = cards;
 		this.hp = new HealthBar(this.scene, 50, 0, 6);
 		this.health = this.hp.hp;
 		this.dropzones = {

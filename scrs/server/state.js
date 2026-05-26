@@ -1,3 +1,5 @@
+import { Card } from "../render/card.js";
+
 export const manaFromDice = {
 	1: "blue",
 	2: "green",
@@ -18,8 +20,6 @@ export class Game {
 			red: 0,
 			gold: 0,
 		};
-		this.diceResults = [1, 1, 1, 1, 1];
-		this.lockedDice = [false, false, false, false, false];
 		this.nrolls = 2
 		this.endturn = false;
 	}
@@ -49,9 +49,36 @@ export class Game {
 	}
 
 	playCard(c, ttaa) {
-		if (c.color === "gold")
-			ttaa.gainHp(c.damage);
-		else
-			ttaa.takeDmg(c.damage);
+		const gimic = c.findGimic();
+		switch (gimic) {
+			// case 0:
+				// break;
+			case 1:
+				freeze(c, ttaa);
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+		}
 	}
+}
+
+function freeze(c, target) {
+	let frozenletitgo = 0;
+	while (frozenletitgo <= c.gimic) {
+		const i = Math.floor(Math.random() * target.diceList.length);
+		if (target.diceList[i].frozen === false) {
+			target.diceList[i].mesh.material.forEach(m => m.color.set(0x7777ff));
+			target.diceList[i].frozen = true;
+			frozenletitgo++;
+		}
+	}
+	target.takeDmg(c.damage);
 }

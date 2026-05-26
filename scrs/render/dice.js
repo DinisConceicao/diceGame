@@ -59,6 +59,7 @@ export class Dice {
 		this.rolly = null;
 		this.rolling = false;
 		this.locked = false;
+		this.frozen = false;
 		const geometry = new THREE.BoxGeometry();
 		const materials = [1,2,3,4,5,6].map(n => 
 			new THREE.MeshBasicMaterial({ map: setDiceFaceTexture(n) })
@@ -70,7 +71,7 @@ export class Dice {
 	}
 
 	roll(onDone) {
-		if (this.locked) {
+		if (this.locked || this.frozen) {
 			if (onDone) onDone(this.result);
 			return ;
 		}
@@ -94,7 +95,7 @@ export class Dice {
 	}
 
 	clicked() {
-		if (this.rolling) return ;
+		if (this.rolling || this.frozen) return ;
 		this.locked = !this.locked;
 		this.mesh.material.forEach(m => {
 			m.color.set(this.locked ? 0x888888 : 0xffffff);

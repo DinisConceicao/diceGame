@@ -5,9 +5,7 @@ import { OrangeCards } from './../cards/orangecard.js';
 import { PurpleCards } from './../cards/purplecards.js';
 import { RedCards } from './../cards/redcards.js';
 import { YellowCards } from './../cards/yellowcards.js';
-// import { PairCards } from './../cards/paircards.js';
-// import { TripletCards } from './../cards/triplecards.js';
-// import { QuadrupletCards } from './../cards/quadrupletcards.js';
+import { GreyCards } from '../cards/greycards.js';
 
 export const AllCards = [
 	...BlueCards,
@@ -16,6 +14,7 @@ export const AllCards = [
 	...PurpleCards,
 	...RedCards,
 	...YellowCards,
+	...GreyCards,
 ];
 
 export class Card {
@@ -33,6 +32,7 @@ export class Card {
 		this.shakeTime = 0;
 		this.playable = false;
 		this.dragging = false;
+		this.gimic = 0;
 
 		const geometry = new THREE.PlaneGeometry(3, 4.5);
 		const material = new THREE.MeshBasicMaterial({ color: 0xffffdd, side: 2 });
@@ -71,7 +71,18 @@ export class Card {
 			this.shakeTime = 20;
 			return;
 		}
+		this.cost = 1000;
 		this.mesh.visible = false;
+	}
+
+	findGimic() {
+		if (this.color === "grey") return 0;
+		if (this.color === "blue") return 1;
+		if (this.color === "red") return 2;
+		if (this.color === "gold") return 3;
+		if (this.color === "darkorange") return 4;
+		if (this.color === "purple") return 5;
+		if (this.color === "green") return 6;
 	}
 }
 

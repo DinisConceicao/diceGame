@@ -52,7 +52,7 @@ hand.forEach(card => card.randomCard());
 diceList.forEach(d => game.addMana(manaFromDice[d.result]));
 updateCardDisplay();
 
-const player = new Player(scene);
+const player = new Player(scene, diceList, hand);
 
 const input = new Input(
 	camera, diceList, hand, player, game
@@ -82,6 +82,7 @@ document.body.appendChild(nextturnbutton);
 
 const rollbutton = document.createElement('rollbutton');
 rollbutton.addEventListener('click', () => {
+	if (diceList.some(d => d.rolling)) return;
 	if (game.nrolls === 0) return;
 	rollbutton.style.display = 'none';
 	let results = [];
@@ -127,3 +128,4 @@ function animate() {
 animate();
 
 // tenho q fazer tudo o q teja na tela relativo a camara do player e nao coordenadas brute forced
+// urgente fazer com que as cartas não se repitam ao ser random
