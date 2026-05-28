@@ -108,6 +108,7 @@ function updateCardDisplay() {
 		const cancan = game.canCastSpell(c.color, c.cost);
 		c.setToPlay(cancan);
 		c.mesh.position.set(c.originalX, c.originalY, 0);
+		c.update();
 	});
 }
 

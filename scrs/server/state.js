@@ -38,6 +38,13 @@ export class Game {
 	}
 
 	canCastSpell(color, amount) {
+		if (color === "grey") {
+			for (const c in this.mana) {
+				if (this.mana[c] > 1)
+					return false;
+			}
+			return true;
+		}
 		if (this.mana[color] >= amount)
 			return true;
 		return false;
@@ -57,13 +64,16 @@ export class Game {
 				freeze(c, ttaa);
 				break;
 			case 2:
+				// fire(c, ttaa);
 				break;
 			case 3:
 				gold(c, ttaa);
 				break;
 			case 4:
+				// block(c, ttaa);
 				break;
 			case 5:
+				// dark(c, ttaa);
 				break;
 			case 6:
 				wind(c, ttaa);

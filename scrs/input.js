@@ -40,6 +40,10 @@ export class Input {
 			const hit = this.raycaster.intersectObject(d.mesh);
 			if (hit.length > 0) d.clicked();
 		})
+		this.hand.forEach(c => {
+			const hit = this.raycaster.intersectObject(c.mesh);
+			if (hit.length > 0) c.castPlay();
+		})
 	}
 
 	onMouseDown(event) {
@@ -85,7 +89,6 @@ export class Input {
 			const zone = this.player.dropCard(c.mesh.position.x, c.mesh.position.y);
 			const validzone = zone && Targets[c.target]?.includes(zone);
 			if (zone && c.playable && validzone) {
-				c.castPlay();
 				this.gamestate.playCard(c, this.player);
 			} else {
 				c.mesh.position.x = c.originalX;
