@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { HealthBar } from './healthbar.js';
+import { AllCards } from './card.js';
 
 export const Targets = {
     all: ['targetLeft', 'targetFront', 'targetRight'],
@@ -68,5 +69,17 @@ export class Player {
 	gainHp(amount) {
 		this.health = Math.min(this.hp.maxhp, this.health + amount);
 		this.hp.newHealth(this.health);
+	}
+
+	newhand() {
+		const notrep = {};
+		for (let i = 0; i < 6; i++) {
+			let theid;
+			do {
+				theid = Math.floor(Math.random() * AllCards.length) + 1;
+			} while (Object.values(notrep).includes(theid));
+			notrep[i] = theid;
+			this.hand[i].newcard(theid);
+		}
 	}
 }

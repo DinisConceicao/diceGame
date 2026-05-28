@@ -48,11 +48,11 @@ const hand = Array.from({ length: handSize }, (_, i) => {
 	return new Card(scene, x, -8, 0);
 });
 
-hand.forEach(card => card.randomCard());
 diceList.forEach(d => game.addMana(manaFromDice[d.result]));
-updateCardDisplay();
 
 const player = new Player(scene, diceList, hand);
+player.newhand();
+updateCardDisplay();
 
 const input = new Input(
 	camera, diceList, hand, player, game
@@ -73,7 +73,7 @@ nextturnbutton.addEventListener('click', () => {
 		d.randomizeFace();
 		game.addMana(manaFromDice[d.result]);
 	});
-	hand.forEach(card => card.randomCard());
+	player.newhand();
 	updateRollDisplay();
 	updateCardDisplay();
 	turnDisplay.innerText = `Turn: ${game.turn}`;

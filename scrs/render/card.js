@@ -41,8 +41,8 @@ export class Card {
 		scene.add(this.mesh);
 	}
 
-	randomCard() {
-		const thecard = AllCards[Math.floor(Math.random() * AllCards.length)];
+	newcard(id) {
+		const thecard = AllCards.find(c => c.id === id);
 		this.name = thecard.name;
 		this.color = thecard.color;
 		this.cost = thecard.cost;
