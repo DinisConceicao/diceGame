@@ -69,6 +69,7 @@ nextturnbutton.addEventListener('click', () => {
 	game.nextTurn();
 	diceList.forEach((d) => {
 		d.locked = false;
+		d.frozen = false;
 		d.mesh.material.forEach(m => m.color.set(0xffffff));
 		d.randomizeFace();
 		game.addMana(manaFromDice[d.result]);

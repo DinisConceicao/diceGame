@@ -73,8 +73,10 @@ export class Game {
 }
 
 function freeze(c, target) {
+	const numfro = target.diceList.filter(d => !d.frozen).length;
+	const stopfr = Math.min(c.gimic , numfro);
 	let frozenletitgo = 0;
-	while (frozenletitgo <= c.gimic) {
+	while (frozenletitgo < stopfr) {
 		const i = Math.floor(Math.random() * target.diceList.length);
 		if (target.diceList[i].frozen === false) {
 			target.diceList[i].mesh.material.forEach(m => m.color.set(0x7777ff));
@@ -87,7 +89,7 @@ function freeze(c, target) {
 
 function gold(c, target) {
 	target.takeDmg(c.damage);
-	target.gainhp(c.gimic);
+	target.gainHp(c.gimic);
 }
 
 function wind(c, target) {
