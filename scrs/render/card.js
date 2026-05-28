@@ -48,6 +48,7 @@ export class Card {
 		this.cost = thecard.cost;
 		this.target = thecard.target;
 		this.damage = typeof thecard.damage === 'function' ? thecard.damage() : thecard.damage;
+		this.gimic = thecard.gimic;
 		const texture = createCardTexture(this);
 		this.mesh.material.map = texture;
 		this.mesh.material.needsUpdate = true;
@@ -93,8 +94,9 @@ function createCardTexture(data) {
 	const ctx = canvas.getContext('2d');
 	const layout = {
 		title: 50,
-		costHeight: 90,
-		textTop: 344
+		costHeight: 70,
+		textGimic: 316,
+		textTop: 364
 	};
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,256,384);
@@ -111,7 +113,13 @@ function createCardTexture(data) {
 		texture.needsUpdate = true;
 	};
 	ctx.textAlign = "left";
-	ctx.fillText(`Damage: ${data.damage}`, 20, layout.textTop);
+	if (data.gimic !== 0) {
+		if (data.color === "blue") ctx.fillText(`Freeze: ${data.gimic}`, 20, layout.textGimic);
+		if (data.color === "red") ctx.fillText(`Burn: ${data.gimic}`, 20, layout.textGimic);
+		if (data.color === "darkorange") ctx.fillText(`Shield: ${data.gimic}`, 20, layout.textGimic);
+		if (data.color === "gold") ctx.fillText(`Heal: ${data.gimic}`, 20, layout.textGimic);	
+	}
+	ctx.fillText(`Damage: ${data.damage}`, 20, layout.textTop);	
 	return texture;
 }
 

@@ -59,12 +59,14 @@ export class Game {
 			case 2:
 				break;
 			case 3:
+				gold(c, ttaa);
 				break;
 			case 4:
 				break;
 			case 5:
 				break;
 			case 6:
+				wind(c, ttaa);
 				break;
 		}
 	}
@@ -80,5 +82,14 @@ function freeze(c, target) {
 			frozenletitgo++;
 		}
 	}
+	target.takeDmg(c.damage);
+}
+
+function gold(c, target) {
+	target.takeDmg(c.damage);
+	target.gainhp(c.gimic);
+}
+
+function wind(c, target) {
 	target.takeDmg(c.damage);
 }
