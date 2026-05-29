@@ -130,4 +130,3 @@ function animate() {
 animate();
 
 // tenho q fazer tudo o q teja na tela relativo a camara do player e nao coordenadas brute forced
-// urgente fazer com que as cartas não se repitam ao ser random

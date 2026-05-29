@@ -58,13 +58,14 @@ export class Game {
 	playCard(c, ttaa) {
 		const gimic = c.findGimic();
 		switch (gimic) {
-			// case 0:
-				// break;
+			case 0:
+				migalha(c, ttaa);
+				break;
 			case 1:
 				freeze(c, ttaa);
 				break;
 			case 2:
-				// fire(c, ttaa);
+				fire(c, ttaa);
 				break;
 			case 3:
 				gold(c, ttaa);
@@ -82,16 +83,33 @@ export class Game {
 	}
 }
 
+function migalha(c, target) {
+	target.takeDmg(c.damage);
+}
+
 function freeze(c, target) {
 	const numfro = target.diceList.filter(d => !d.frozen).length;
-	const stopfr = Math.min(c.gimic , numfro);
+	const stopfr = Math.min(c.gimic, numfro);
 	let frozenletitgo = 0;
 	while (frozenletitgo < stopfr) {
 		const i = Math.floor(Math.random() * target.diceList.length);
 		if (target.diceList[i].frozen === false) {
-			target.diceList[i].mesh.material.forEach(m => m.color.set(0x7777ff));
 			target.diceList[i].frozen = true;
 			frozenletitgo++;
+		}
+	}
+	target.takeDmg(c.damage);
+}
+
+function fire(c, target) {
+	const numburn = target.hand.filter(c => !c.burning).length;
+	const noburn = Math.min(c.gimic, numburn);
+	let cardsonfire = 0;
+	while (cardsonfire <= numburn) {
+		const i = Math.floor(Math.random() * target.hand.length);
+		if (target.hand[i].burning === false) {
+			target.hand[i].burning = true;
+			cardsonfire++;
 		}
 	}
 	target.takeDmg(c.damage);

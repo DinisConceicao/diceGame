@@ -33,6 +33,7 @@ export class Card {
 		this.playable = false;
 		this.dragging = false;
 		this.gimic = 0;
+		this.burning = false;
 
 		const geometry = new THREE.PlaneGeometry(3, 4.5);
 		const material = new THREE.MeshBasicMaterial({ color: 0xffffdd, side: 2 });
@@ -59,7 +60,10 @@ export class Card {
 		if (this.shakeTime > 0) {
 			this.mesh.position.x = this.originalX + Math.sin(this.shakeTime * 2) * 0.15;
 			this.shakeTime--;
-		} 
+		}
+		// if (this.burning) {
+		// fala fazer os vfx do foguinho
+		// }
 	}
 
 	setToPlay(cancan) {

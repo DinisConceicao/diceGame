@@ -92,6 +92,7 @@ export class Dice {
 			this.mesh.rotation.x += 0.3;
 			this.mesh.rotation.y += 0.3;
 		}
+		if (this.frozen) this.mesh.material.forEach(d => d.color.set(0x7777ff));
 	}
 
 	clicked() {
